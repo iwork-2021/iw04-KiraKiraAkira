@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		526B10612765E3A80024BD6C /* SnackClassifier1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 526B10602765E3A80024BD6C /* SnackClassifier1.mlmodel */; };
+		526B10632766074B0024BD6C /* HealthyClassifier1.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 526B10622766074B0024BD6C /* HealthyClassifier1.mlmodel */; };
 		7B11BA832048333700D790AA /* CGImagePropertyOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B11BA822048333700D790AA /* CGImagePropertyOrientation.swift */; };
 		7BF6C660204818EC00606217 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF6C65F204818EC00606217 /* AppDelegate.swift */; };
 		7BF6C662204818EC00606217 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BF6C661204818EC00606217 /* ViewController.swift */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		526B10602765E3A80024BD6C /* SnackClassifier1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = SnackClassifier1.mlmodel; sourceTree = SOURCE_ROOT; };
+		526B10622766074B0024BD6C /* HealthyClassifier1.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = HealthyClassifier1.mlmodel; sourceTree = SOURCE_ROOT; };
 		7B11BA822048333700D790AA /* CGImagePropertyOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGImagePropertyOrientation.swift; sourceTree = "<group>"; };
 		7BF6C65C204818EC00606217 /* HealthySnacks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HealthySnacks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF6C65F204818EC00606217 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
@@ -54,6 +58,8 @@
 		7BF6C65E204818EC00606217 /* Snacks */ = {
 			isa = PBXGroup;
 			children = (
+				526B10622766074B0024BD6C /* HealthyClassifier1.mlmodel */,
+				526B10602765E3A80024BD6C /* SnackClassifier1.mlmodel */,
 				7BF6C65F204818EC00606217 /* AppDelegate.swift */,
 				7BF6C661204818EC00606217 /* ViewController.swift */,
 				7B11BA822048333700D790AA /* CGImagePropertyOrientation.swift */,
@@ -136,6 +142,8 @@
 			files = (
 				7BF6C662204818EC00606217 /* ViewController.swift in Sources */,
 				7BF6C660204818EC00606217 /* AppDelegate.swift in Sources */,
+				526B10612765E3A80024BD6C /* SnackClassifier1.mlmodel in Sources */,
+				526B10632766074B0024BD6C /* HealthyClassifier1.mlmodel in Sources */,
 				7B11BA832048333700D790AA /* CGImagePropertyOrientation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,14 +281,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = E98L3B5R56;
+				DEVELOPMENT_TEAM = 33S44Z7WW4;
 				INFOPLIST_FILE = Snacks/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.iwork.HealthySnacks;
+				PRODUCT_BUNDLE_IDENTIFIER = "-051381286-qq.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -299,7 +307,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.iwork.HealthySnacks;
+				PRODUCT_BUNDLE_IDENTIFIER = "-051381286-qq.com";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

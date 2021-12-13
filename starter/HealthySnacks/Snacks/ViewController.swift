@@ -27,6 +27,9 @@
 /// THE SOFTWARE.
 
 import UIKit
+import CoreML
+import Vision
+import CoreMedia
 
 class ViewController: UIViewController {
   
@@ -38,6 +41,47 @@ class ViewController: UIViewController {
   @IBOutlet var resultsConstraint: NSLayoutConstraint!
 
   var firstTime = true
+  lazy var classificationRequest: VNCoreMLRequest = {
+              do{
+                  let classifier = try HealthyClassifier1(configuration: MLModelConfiguration())
+                  
+                  let model = try VNCoreMLModel(for: classifier.model)
+                  let request = VNCoreMLRequest(model: model, completionHandler: {
+                      [weak self] request,error in
+                      self?.processObservations(for: request, error: error)
+                  })
+                  request.imageCropAndScaleOption = VNImageCropAndScaleOption.centerCrop
+                  return request
+                  
+                  
+              } catch {
+                  fatalError("Failed to create request")
+              }
+      }()
+
+    
+    func processObservations(for request: VNRequest, error: Error?) {
+            if let results = request.results as? [VNClassificationObservation] {
+                if results.isEmpty {
+                    self.resultsLabel.text = "Nothing found"
+                    print(1)
+                } else {
+                    let result = results[0].identifier
+                    let confidence = results[0].confidence
+                    let stringtemp = String(format: "%.1f%%", confidence * 100)
+                    self.resultsLabel.text = "i think " + stringtemp + " is " + result
+                    if confidence <= 0.7{
+                        self.resultsLabel.text = "i am not sure"
+                    }
+                    self.showResultsView()
+                    print(result)
+                }
+            } else if let error = error {
+                self.resultsLabel.text = "Error: \(error.localizedDescription)"
+            } else {
+                self.resultsLabel.text = "???"
+            }
+        }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -96,6 +140,16 @@ class ViewController: UIViewController {
   }
 
   func classify(image: UIImage) {
+      DispatchQueue.main.async {
+                let handler = VNImageRequestHandler(cgImage: image.cgImage!)
+                do {
+                    try handler.perform([self.classificationRequest])
+                } catch {
+                    print("Failed to perform classification: \(error)")
+                }
+                
+            }
+        
   }
 }
 
