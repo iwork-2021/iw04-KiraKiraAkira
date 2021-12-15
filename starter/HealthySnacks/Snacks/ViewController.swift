@@ -59,7 +59,23 @@ class ViewController: UIViewController {
               }
       }()
 
-    
+    lazy var classificationRequest_0: VNCoreMLRequest = {
+                do{
+                    let classifier = try SnackClassifier1(configuration: MLModelConfiguration())
+                    
+                    let model = try VNCoreMLModel(for: classifier.model)
+                    let request = VNCoreMLRequest(model: model, completionHandler: {
+                        [weak self] request,error in
+                        self?.processObservations(for: request, error: error)
+                    })
+                    request.imageCropAndScaleOption = VNImageCropAndScaleOption.centerCrop
+                    return request
+                    
+                    
+                } catch {
+                    fatalError("Failed to create request")
+                }
+        }()
     func processObservations(for request: VNRequest, error: Error?) {
             if let results = request.results as? [VNClassificationObservation] {
                 if results.isEmpty {
@@ -69,7 +85,15 @@ class ViewController: UIViewController {
                     let result = results[0].identifier
                     let confidence = results[0].confidence
                     let stringtemp = String(format: "%.1f%%", confidence * 100)
-                    self.resultsLabel.text = "i think " + stringtemp + " is " + result
+                    if self.resultsLabel.text == "choose or take a photo"{
+                        self.resultsLabel.text = "i think " + stringtemp + " is " + result
+                    }else if(self.resultsLabel.text?.count ?? 0>40){
+                        self.resultsLabel.text = "choose or take a photo"
+                        processObservations(for: request, error: error)
+                    }else{
+                        self.resultsLabel.text! += "\n" + "i think " + stringtemp + " is " + result
+                    }
+                    
                     if confidence <= 0.7{
                         self.resultsLabel.text = "i am not sure"
                     }
@@ -98,6 +122,7 @@ class ViewController: UIViewController {
       showResultsView(delay: 0.5)
       firstTime = false
     }
+    
   }
   
   @IBAction func takePicture() {
@@ -131,6 +156,7 @@ class ViewController: UIViewController {
       self.view.layoutIfNeeded()
     },
     completion: nil)
+    //resultsLabel.text = "choose or take a photo"
   }
 
   func hideResultsView() {
@@ -144,6 +170,7 @@ class ViewController: UIViewController {
                 let handler = VNImageRequestHandler(cgImage: image.cgImage!)
                 do {
                     try handler.perform([self.classificationRequest])
+                    try handler.perform([self.classificationRequest_0])
                 } catch {
                     print("Failed to perform classification: \(error)")
                 }
